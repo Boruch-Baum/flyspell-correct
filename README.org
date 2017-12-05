@@ -1,6 +1,6 @@
 * flyspell-correct
 
-This is a fork of the [[https://github.com/d12frosted/flyspell-correct][flyspell-correct]] git repository], providing the
+This is a fork of the [[https://github.com/d12frosted/flyspell-correct][flyspell-correct]] git repository, providing the
 following changes:
 
 + At end of spell checking, point remains at final correction instead
@@ -23,8 +23,6 @@ following changes:
 + Adds convenience function 'flyspell-popup-wrapper' so users can
   easily use the 'rapid' feature and easily change direction by
   specifying a prefix argument.
-
-
 
 * original readme begins here:
 
