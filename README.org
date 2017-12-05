@@ -1,5 +1,32 @@
 * flyspell-correct
 
+This is a fork of the [flyspell-correct git
+repository](https://github.com/d12frosted/flyspell-correct), providing
+the following changes:
+
++ At end of spell checking, point remains at final correction instead
+  of jumping back to start.
+
++ combine identical code of function
+  'flyspell-correct-previous-word-generic' and
+  'flyspell-correct-next-word-generic' into new function
+  'flyspell-correct-move'.
+
++ added feature to push the point onto the mark ring for each spelling
+  correction, so one can review and navigate the buffer to corrected
+  words after running the commands.
+
++ added "rapid" feature to automatically progress to every remaining
+  spelling error in the buffer in the current direction. The feature
+  is enabled by invoking flyspell-correct with the prefix argument
+  (C-u).
+
++ add convenience function 'flyspell-popup-wrapper' so users can
+  easily use the 'rapid' feature and easily change direction by
+  specifying a prefix argument.
+
+* original readme begins here:
+
 [[https://github.com/syl20bnr/spacemacs][file:https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg]]
 
 | =flyspell-correct=       | [[http://melpa.org/#/flyspell-correct][file:http://melpa.org/packages/flyspell-correct-badge.svg]]       | [[https://stable.melpa.org/#/flyspell-correct][file:https://stable.melpa.org/packages/flyspell-correct-badge.svg]]       |
