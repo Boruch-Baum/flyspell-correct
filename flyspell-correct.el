@@ -74,34 +74,6 @@ forward, in order to retain backward compatability with the
 prior operation of `flyspell-correct'.")
 
 
-;; Convenience wrapper function for most uses
-
-;;;###autoload
-(defun flyspell-correct-wrapper (arg)
-  "Search for the previous or next spelling error and suggest
-corrections via popup interface.
-
-- One \\[universal-argument] enables rapid mode.
-- Two \\[universal-argument]'s changes direction of spelling
-  errors search.
-- Three \\[universal-argument]'s changes direction of spelling
-  errors search and enables rapid mode."
-  (interactive "P")
-  (when (or (not (mark)) (/= (mark) (point)))
-    (push-mark (point) t))
-  (cond
-   ;((equal current-prefix-arg '(4)) ; C-u = rapid
-   ;   (setq current-prefix-arg '(4)))
-    ((equal current-prefix-arg '(16)) ; C-u C-u = change direction
-       (setq current-prefix-arg nil)
-       (setq flyspell-direction (not flyspell-direction)))
-    ((equal current-prefix-arg '(64)) ; C-u C-u C-u = do both
-      ;(setq current-prefix-arg '(4) is unnecessary
-       (setq flyspell-direction (not flyspell-direction))))
-  (if flyspell-direction
-    (flyspell-correct-previous (point))
-   (flyspell-correct-next (point))))
-
 
 ;; Default interface
 
@@ -206,6 +178,33 @@ misspelled words in the buffer."
 
 ;;; Generic helpers
 ;;
+
+;;;###autoload
+(defun flyspell-correct-wrapper (arg)
+  "Search for the previous or next spelling error and suggest
+corrections via popup interface.
+
+- One \\[universal-argument] enables rapid mode.
+- Two \\[universal-argument]'s changes direction of spelling
+  errors search.
+- Three \\[universal-argument]'s changes direction of spelling
+  errors search and enables rapid mode."
+  (interactive "P")
+  (when (or (not (mark)) (/= (mark) (point)))
+    (push-mark (point) t))
+  (cond
+   ;((equal current-prefix-arg '(4)) ; C-u = rapid
+   ;   (setq current-prefix-arg '(4)))
+    ((equal current-prefix-arg '(16)) ; C-u C-u = change direction
+       (setq current-prefix-arg nil)
+       (setq flyspell-direction (not flyspell-direction)))
+    ((equal current-prefix-arg '(64)) ; C-u C-u C-u = do both
+      ;(setq current-prefix-arg '(4) is unnecessary
+       (setq flyspell-direction (not flyspell-direction))))
+  (if flyspell-direction
+    (flyspell-correct-previous (point))
+   (flyspell-correct-next (point))))
+
 
 ;;;###autoload
 (defun flyspell-correct-move (position &optional forward rapid)
