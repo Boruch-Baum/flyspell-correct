@@ -4,8 +4,8 @@
 ;;
 ;; Author: Boris Buliga <boris@d12frosted.io>
 ;; URL: https://github.com/d12frosted/flyspell-correct
-;; Package-Version: 0.4.0
-;; Package-Requires: ((flyspell-correct "0.4.0") (ivy "0.8.0"))
+;; Package-Version: 0.5.0
+;; Package-Requires: ((flyspell-correct "0.5.0") (ivy "0.8.0"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -14,8 +14,20 @@
 ;;; Commentary:
 ;; This package provides ivy interface for flyspell-correct package.
 ;;
-;; Points of interest are `flyspell-correct-word-generic' and
-;; `flyspell-correct-previous-word-generic'.
+;; Points of interest are `flyspell-correct-wrapper',
+;; `flyspell-correct-previous' and `flyspell-correct-next'.
+;;
+;; Example usage:
+;;
+;;   (require 'flyspell-correct-ivy)
+;;   (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-wrapper)
+;;
+;; Or via use-package:
+;;
+;;   (use-package flyspell-correct-ivy
+;;     :bind ("C-M-;" . flyspell-correct-wrapper)
+;;     :init
+;;     (setq flyspell-correct-interface #'flyspell-correct-ivy))
 ;;
 ;;; Code:
 ;;
@@ -27,6 +39,7 @@
 
 ;; Interface implementation
 
+;;;###autoload
 (defun flyspell-correct-ivy (candidates word)
   "Run `ivy-read' for the given CANDIDATES.
 
@@ -39,11 +52,13 @@ of (command, word) to be used by `flyspell-do-correct'."
          (action-save-word (lambda (_) (setq result (cons 'save word))))
          (action-accept-session (lambda (_) (setq result (cons 'session word))))
          (action-accept-buffer (lambda (_) (setq result (cons 'buffer word))))
+         (action-skip-word (lambda (_) (setq result (cons 'skip word))))
          (action `(1
                    ("o" ,action-default "correct")
                    ("s" ,action-save-word "Save")
                    ("S" ,action-accept-session "Accept (session)")
-                   ("b" ,action-accept-buffer "Accept (buffer)"))))
+                   ("b" ,action-accept-buffer "Accept (buffer)")
+                   ("k" ,action-skip-word "Skip"))))
     (ivy-read (format "Suggestions for \"%s\" in dictionary \"%s\": "
                       word (or ispell-local-dictionary
                                ispell-dictionary
@@ -57,4 +72,4 @@ of (command, word) to be used by `flyspell-do-correct'."
 
 (provide 'flyspell-correct-ivy)
 
-;;; flyspell-correct-helm.el ends here
+;;; flyspell-correct-ivy.el ends here

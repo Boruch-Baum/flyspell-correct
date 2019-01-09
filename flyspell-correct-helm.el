@@ -4,8 +4,8 @@
 ;;
 ;; Author: Boris Buliga <boris@d12frosted.io>
 ;; URL: https://github.com/d12frosted/flyspell-correct
-;; Package-Version: 0.4.0
-;; Package-Requires: ((flyspell-correct "0.4.0") (helm "1.9.0"))
+;; Package-Version: 0.5.0
+;; Package-Requires: ((flyspell-correct "0.5.0") (helm "1.9.0"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -14,8 +14,20 @@
 ;;; Commentary:
 ;; This package provides helm interface for flyspell-correct package.
 ;;
-;; Points of interest are `flyspell-correct-word-generic' and
-;; `flyspell-correct-previous-word-generic'.
+;; Points of interest are `flyspell-correct-wrapper',
+;; `flyspell-correct-previous' and `flyspell-correct-next'.
+;;
+;; Example usage:
+;;
+;;   (require 'flyspell-correct-helm)
+;;   (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-wrapper)
+;;
+;; Or via use-package:
+;;
+;;   (use-package flyspell-correct-helm
+;;     :bind ("C-M-;" . flyspell-correct-wrapper)
+;;     :init
+;;     (setq flyspell-correct-interface #'flyspell-correct-helm))
 ;;
 ;;; Code:
 ;;
@@ -27,6 +39,7 @@
 
 ;; Interface implementation
 
+;;;###autoload
 (defun flyspell-correct--helm-always-match (_)
   "Return non-nil for any CANDIDATE."
   t)
@@ -38,7 +51,9 @@
                     (cons (format "Accept (session) \"%s\"" word)
                           (cons 'session word))
                     (cons (format "Accept (buffer) \"%s\"" word)
-                          (cons 'buffer word)))))
+                          (cons 'buffer word))
+                    (cons (format "Skip \"%s\"" word)
+                          (cons 'skip word)))))
     (unless (string= helm-pattern "")
       (setq opts
             (append opts
