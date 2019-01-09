@@ -7,9 +7,9 @@ following changes:
   of jumping back to start.
 
 + Combine identical code of function
-  'flyspell-correct-previous-word-generic' and
-  'flyspell-correct-next-word-generic' into new function
-  'flyspell-correct-move'.
+  `flyspell-correct-previous-word-generic` and
+  `flyspell-correct-next-word-generic` into new function
+  `flyspell-correct-move`.
 
 + Adds feature to push the point onto the mark ring for each spelling
   correction, so one can review and navigate the buffer to corrected
@@ -17,12 +17,21 @@ following changes:
 
 + Adds "rapid" feature to automatically progress to every remaining
   spelling error in the buffer in the current direction. The feature
-  is enabled by invoking flyspell-correct with the prefix argument
+  is enabled by invoking `flyspell-correct` with the prefix argument
   (C-u).
 
-+ Adds convenience function 'flyspell-popup-wrapper' so users can
-  easily use the 'rapid' feature and easily change direction by
-  specifying a prefix argument.
++ Adds convenience function `flyspell-correct-wrapper` so users can
+  easily use the `rapid` feature and easily change direction by
+  specifying one, two, or three prefix arguments.
+  + C-u         enables rapid mode.
+  + C-u C-u     changes the direction of operation
+  - C-u C-u C-u does both.
+
++ Adds boolean customization variable
+  `flyspell-correct-forward-direction` to set the default direction
+  for handling spelling errors. This direction can be toggled
+  on-the-fly when calling `flyspell-correct-wrapper`, and the change
+  will be persistent for the emacs session.
 
 * original readme begins here:
 
