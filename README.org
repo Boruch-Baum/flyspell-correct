@@ -23,9 +23,9 @@ following changes:
 + Adds convenience function =flyspell-correct-wrapper= so users can
   easily use the "rapid" feature and easily change direction by
   specifying one, two, or three prefix arguments.
-  + C-u         enables rapid mode.
-  + C-u C-u     changes the direction of operation.
-  - C-u C-u C-u does both.
+  + =C-u=         enables rapid mode.
+  + =C-u C-u=     changes the direction of operation.
+  - =C-u C-u C-u= does both.
 
 + Adds boolean customization variable
   =flyspell-correct-forward-direction= to set the default direction
